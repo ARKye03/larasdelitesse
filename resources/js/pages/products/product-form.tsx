@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { LetesseTextarea } from '@/components/ui/letesse-textarea';
 import AppLayout from '@/layouts/app-layout';
+import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
@@ -11,7 +12,7 @@ import { ArrowLeft } from 'lucide-react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Product Form',
-        href: '/products/create',
+        href: products.create().url,
     },
 ];
 
@@ -26,7 +27,7 @@ export default function ProductForm() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post('/products/store', {
+        post(products.store().url, {
             onSuccess: () => {
                 console.log('Product created successfully');
                 reset();

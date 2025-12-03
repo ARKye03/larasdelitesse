@@ -1,4 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
+import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
 import { CirclePlus } from 'lucide-react';
@@ -6,7 +7,7 @@ import { CirclePlus } from 'lucide-react';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Products',
-        href: '/products',
+        href: products.index().url,
     },
 ];
 
@@ -18,7 +19,7 @@ export default function Products() {
                 <div className="ml-auto">
                     <Link
                         as="button"
-                        href={'products/create'}
+                        href={products.create().url}
                         className="rounded-sm p-2 transition-colors duration-200 hover:bg-gray-800"
                     >
                         <CirclePlus />
