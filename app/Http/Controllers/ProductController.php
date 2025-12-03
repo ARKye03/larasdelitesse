@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Inertia::render('products');
+        return Inertia::render('products/index');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('products/product-form');
     }
 
     /**
@@ -29,7 +29,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
