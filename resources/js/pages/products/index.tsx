@@ -1,8 +1,8 @@
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import FlashMessage from '@/components/flash-message';
 import AppLayout from '@/layouts/app-layout';
 import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { CirclePlus } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -13,23 +13,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index() {
-    const { flash } = usePage<{ flash: { success?: string; error?: string } }>()
-        .props;
-    const alertMessage = flash?.success || flash?.error;
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                {flash?.success ||
-                    (flash?.error && (
-                        <Alert variant={'default'}>
-                            <AlertTitle>
-                                {flash?.success ? 'Success' : 'Error'}
-                            </AlertTitle>
-                            <AlertDescription>{alertMessage}</AlertDescription>
-                        </Alert>
-                    ))}
+                <FlashMessage />
                 <div className="ml-auto">
                     <Link
                         as="button"
