@@ -16,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Inertia::render('products/index');
+        $productsList = Product::latest()->get();
+        return Inertia::render('products/index', [
+            'productsList' => $productsList,
+        ]);
     }
 
     /**
@@ -47,6 +50,7 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'image' => $image,
+                'date' => now(),
                 'stock' => $request->stock,
             ]);
 

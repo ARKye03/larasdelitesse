@@ -12,7 +12,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index() {
+interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    date: string;
+    stock: number;
+}
+
+export default function Index({ ...props }: { productsList: Product[] }) {
+    const { productsList } = props;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -41,24 +52,38 @@ export default function Index() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="border p-2">1</td>
-                            <td className="border p-2">
-                                Gigantosaurus Pro Max
-                            </td>
-                            <td className="border p-2">
-                                Gigantosaurus Pro Max is the best product
-                            </td>
-                            <td className="border p-2">$100</td>
-                            <td className="border p-2">Image 1</td>
-                            <td className="border p-2">2025-12-03</td>
-                            <td className="border p-2">10</td>
-                            <td className="border p-2">
-                                <button className="bg-sky-900 px-2 py-1 text-white">
-                                    Edit
-                                </button>
-                            </td>
-                        </tr>
+                        {productsList.map((itemProduct, index) => (
+                            <tr key={index}>
+                                <td className="border p-2">{index + 1}</td>
+                                <td className="border p-2">
+                                    {itemProduct.name}
+                                </td>
+                                <td className="border p-2">
+                                    {itemProduct.description}
+                                </td>
+                                <td className="border p-2">
+                                    {itemProduct.price}
+                                </td>
+                                <td className="border p-2">
+                                    <img
+                                        src={itemProduct.image}
+                                        alt={itemProduct.name}
+                                        className="h-10 w-10 object-cover"
+                                    />
+                                </td>
+                                <td className="border p-2">
+                                    {itemProduct.date}
+                                </td>
+                                <td className="border p-2">
+                                    {itemProduct.stock}
+                                </td>
+                                <td className="border p-2">
+                                    <button className="bg-sky-900 px-2 py-1 text-white">
+                                        Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
