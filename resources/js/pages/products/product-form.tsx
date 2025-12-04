@@ -1,3 +1,4 @@
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -33,6 +34,12 @@ export default function ProductForm() {
                 reset();
             },
         });
+    };
+
+    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setData('image', event.target.files[0]);
+        }
     };
 
     return (
@@ -73,6 +80,8 @@ export default function ProductForm() {
                                             setData('name', e.target.value)
                                         }
                                     />
+
+                                    <InputError message={errors.name} />
                                 </div>
                                 {/* Description */}
                                 <div className="grid gap-2">
@@ -93,6 +102,8 @@ export default function ProductForm() {
                                             )
                                         }
                                     />
+
+                                    <InputError message={errors.description} />
                                 </div>
                                 {/* Price */}
                                 <div className="grid gap-2">
@@ -108,6 +119,8 @@ export default function ProductForm() {
                                             setData('price', e.target.value)
                                         }
                                     />
+
+                                    <InputError message={errors.price} />
                                 </div>
                                 {/* Image */}
                                 <div className="grid gap-2">
@@ -119,13 +132,10 @@ export default function ProductForm() {
                                         placeholder="Product Image"
                                         tabIndex={4}
                                         // value={data.image}
-                                        // onChange={(e) =>
-                                        //     setData(
-                                        //         'image',
-                                        //         e.target.files?.[0],
-                                        //     )
-                                        // }
+                                        onChange={handleImageUpload}
                                     />
+
+                                    <InputError message={errors.image} />
                                 </div>
                                 {/* Stock */}
                                 <div className="grid gap-2">
@@ -141,6 +151,8 @@ export default function ProductForm() {
                                             setData('stock', e.target.value)
                                         }
                                     />
+
+                                    <InputError message={errors.stock} />
                                 </div>
                                 {/* Submit */}
                                 <div className="grid gap-2">
