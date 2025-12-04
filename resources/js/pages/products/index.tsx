@@ -18,8 +18,20 @@ interface Product {
     description: string;
     price: number;
     image: string;
-    date: string;
+    created_at: string;
+    updated_at: string;
     stock: number;
+}
+
+function formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
 }
 
 export default function Index({ ...props }: { productsList: Product[] }) {
@@ -46,7 +58,8 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                             <th className="border p-2">Description</th>
                             <th className="border p-2">Price</th>
                             <th className="border p-2">Image</th>
-                            <th className="border p-2">Date</th>
+                            <th className="border p-2">Created At</th>
+                            <th className="border p-2">Updated At</th>
                             <th className="border p-2">Stock</th>
                             <th className="border p-2">Action</th>
                         </tr>
@@ -72,7 +85,10 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     />
                                 </td>
                                 <td className="border p-2">
-                                    {itemProduct.date}
+                                    {formatDate(itemProduct.created_at)}
+                                </td>
+                                <td className="border p-2">
+                                    {formatDate(itemProduct.updated_at)}
                                 </td>
                                 <td className="border p-2">
                                     {itemProduct.stock}
