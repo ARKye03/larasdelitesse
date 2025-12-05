@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, Eye, Pencil, Trash } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -86,10 +86,38 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     {itemProduct.stock}
                                 </td>
                                 <td className="border p-2">
-                                    <div className="flex items-center justify-center">
-                                        <button className="rounded bg-ctp-red-700 px-2 py-1 text-white">
-                                            Edit
-                                        </button>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Link
+                                            as="button"
+                                            href={
+                                                products.show(itemProduct.id)
+                                                    .url
+                                            }
+                                            className="cursor-pointer rounded bg-ctp-green-700 px-2 py-1 text-white transition-opacity duration-200 hover:opacity-90"
+                                        >
+                                            <Eye />
+                                        </Link>
+
+                                        <Link
+                                            as="button"
+                                            href={
+                                                products.edit(itemProduct.id)
+                                                    .url
+                                            }
+                                            className="cursor-pointer rounded bg-ctp-sapphire-700 px-2 py-1 text-white transition-opacity duration-200 hover:opacity-90"
+                                        >
+                                            <Pencil />
+                                        </Link>
+                                        <Link
+                                            as="button"
+                                            href={
+                                                products.destroy(itemProduct.id)
+                                                    .url
+                                            }
+                                            className="cursor-pointer rounded bg-ctp-red-700 px-2 py-1 text-white transition-opacity duration-200 hover:opacity-90"
+                                        >
+                                            <Trash />
+                                        </Link>
                                     </div>
                                 </td>
                             </tr>
