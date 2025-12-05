@@ -36,7 +36,7 @@ function formatDate(dateString: string): string {
 
 export default function Index({ ...props }: { productsList: Product[] }) {
     const { productsList } = props;
-    console.log(productsList[0]);
+    // console.log(productsList[0]);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -53,7 +53,7 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                 </div>
                 <table className="overflow-hidden rounded-2xl">
                     <thead>
-                        <tr className="bg-sky-900 text-white">
+                        <tr className="bg-ctp-red-700 text-white">
                             <th className="border p-2">#</th>
                             <th className="border p-2">Name</th>
                             <th className="border p-2">Description</th>
@@ -79,11 +79,13 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     {itemProduct.price}
                                 </td>
                                 <td className="border p-2">
-                                    <img
-                                        src={itemProduct.imageFile}
-                                        alt={itemProduct.name}
-                                        className="h-10 w-10 object-cover"
-                                    />
+                                    <div className="flex items-center justify-center">
+                                        <img
+                                            src={itemProduct.imageFile}
+                                            alt={itemProduct.name}
+                                            className="h-10 w-10 rounded object-cover"
+                                        />
+                                    </div>
                                 </td>
                                 <td className="border p-2">
                                     {formatDate(itemProduct.created_at)}
@@ -95,9 +97,11 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     {itemProduct.stock}
                                 </td>
                                 <td className="border p-2">
-                                    <button className="bg-sky-900 px-2 py-1 text-white">
-                                        Edit
-                                    </button>
+                                    <div className="flex items-center justify-center">
+                                        <button className="rounded bg-ctp-red-700 px-2 py-1 text-white">
+                                            Edit
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
