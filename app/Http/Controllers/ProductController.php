@@ -24,8 +24,8 @@ class ProductController extends Controller
                 'price' => $product->price,
                 'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
                 'stock' => $product->stock,
-                'created_at' => $product->created_at,
-                'updated_at' => $product->updated_at,
+                'created_at' => $product->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
             ];
         });
         return Inertia::render('products/index', [
@@ -61,7 +61,6 @@ class ProductController extends Controller
                 'description' => $request->description,
                 'price' => $request->price,
                 'imageFile' => $image,
-                'date' => now(),
                 'stock' => $request->stock,
             ]);
 

@@ -23,17 +23,6 @@ interface Product {
     stock: number;
 }
 
-function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-    });
-}
-
 export default function Index({ ...props }: { productsList: Product[] }) {
     const { productsList } = props;
     // console.log(productsList[0]);
@@ -88,10 +77,10 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     </div>
                                 </td>
                                 <td className="border p-2">
-                                    {formatDate(itemProduct.created_at)}
+                                    {itemProduct.created_at}
                                 </td>
                                 <td className="border p-2">
-                                    {formatDate(itemProduct.updated_at)}
+                                    {itemProduct.updated_at}
                                 </td>
                                 <td className="border p-2">
                                     {itemProduct.stock}
