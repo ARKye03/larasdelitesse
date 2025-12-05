@@ -16,7 +16,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productsList = Product::latest()->get();
+        $productsList = Product::latest()->get()->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
+                'stock' => $product->stock,
+                'created_at' => $product->created_at,
+                'updated_at' => $product->updated_at,
+            ];
+        });
         return Inertia::render('products/index', [
             'productsList' => $productsList,
         ]);
