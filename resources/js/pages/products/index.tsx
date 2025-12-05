@@ -17,7 +17,7 @@ interface Product {
     name: string;
     description: string;
     price: number;
-    image: string;
+    imageFile: string;
     created_at: string;
     updated_at: string;
     stock: number;
@@ -36,6 +36,7 @@ function formatDate(dateString: string): string {
 
 export default function Index({ ...props }: { productsList: Product[] }) {
     const { productsList } = props;
+    console.log(productsList[0]);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -79,7 +80,7 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                 </td>
                                 <td className="border p-2">
                                     <img
-                                        src={itemProduct.image}
+                                        src={itemProduct.imageFile}
                                         alt={itemProduct.name}
                                         className="h-10 w-10 object-cover"
                                     />

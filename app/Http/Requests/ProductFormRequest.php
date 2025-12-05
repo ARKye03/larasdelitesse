@@ -17,11 +17,11 @@ class ProductFormRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'imageFile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock' => 'required|numeric',
         ];
     }
-    
+
     /**
      * Get the validation messages that apply to the request.
      
@@ -33,7 +33,7 @@ class ProductFormRequest extends FormRequest
             'name.required' => 'The name field is required.',
             'description.required' => 'The description field is required.',
             'price.required' => 'The price field is required.',
-            'image.required' => 'The image field is required.',
+            'imageFile.required' => 'The image field is required.',
             'stock.required' => 'The stock field is required.',
         ];
     }

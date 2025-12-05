@@ -40,16 +40,16 @@ class ProductController extends Controller
     {
         try {
             $image = null;
-            if ($request->file('image')) {
-                $image = $request->file('image');
+            if ($request->file('imageFile')) {
+                $image = $request->file('imageFile');
                 $image = $image->store('products', 'public');
             }
-
+            Log::info('Product imageFile: ' . $image);
             $product = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
-                'image' => $image,
+                'imageFile' => $image,
                 'date' => now(),
                 'stock' => $request->stock,
             ]);

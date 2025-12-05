@@ -22,7 +22,7 @@ export default function ProductForm() {
         name: '',
         description: '',
         price: '',
-        image: null as File | null,
+        imageFile: null as File | null,
         stock: '',
     });
 
@@ -38,7 +38,7 @@ export default function ProductForm() {
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setData('image', event.target.files[0]);
+            setData('imageFile', event.target.files[0]);
         }
     };
 
@@ -135,7 +135,7 @@ export default function ProductForm() {
                                         onChange={handleImageUpload}
                                     />
 
-                                    <InputError message={errors.image} />
+                                    <InputError message={errors.imageFile} />
                                 </div>
                                 {/* Stock */}
                                 <div className="grid gap-2">
