@@ -71,11 +71,13 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     </td>
                                     <td className="border p-2">
                                         <div className="flex items-center justify-center">
-                                            <img
-                                                src={itemProduct.imageFile}
-                                                alt={itemProduct.name}
-                                                className="h-10 w-10 rounded object-cover"
-                                            />
+                                            {itemProduct.imageFile && (
+                                                <img
+                                                    src={itemProduct.imageFile}
+                                                    alt={itemProduct.name}
+                                                    className="h-10 w-10 rounded object-cover"
+                                                />
+                                            )}
                                         </div>
                                     </td>
                                     <td className="border p-2">
