@@ -147,6 +147,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            if ($product->imageFile && Storage::disk('public')->exists($product->imageFile)) {
+                Storage::disk('public')->delete($product->imageFile);
+            }
             $product->delete();
             return redirect()->route('products.index')->with('success', 'Product deleted successfully');
         } catch (Exception $e) {
