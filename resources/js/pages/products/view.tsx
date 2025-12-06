@@ -110,7 +110,7 @@ export default function View({ product }: ViewProps) {
                                     <img
                                         src={product.imageFile}
                                         alt={product.name}
-                                        className="h-full w-full rounded-lg object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full rounded-lg object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
                                     <div className="from-ctp-base-900/80 absolute inset-0 rounded-lg bg-linear-to-t via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                                 </div>

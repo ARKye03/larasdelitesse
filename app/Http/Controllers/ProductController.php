@@ -81,7 +81,16 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return Inertia::render('products/view', [
-            'product' => $product,
+            'product' => [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
+                'stock' => $product->stock,
+                'created_at' => $product->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
+            ],
         ]);
     }
 
