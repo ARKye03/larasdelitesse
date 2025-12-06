@@ -22,9 +22,12 @@ export default function ProductForm({ ...props }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: product?.name || '',
         description: product?.description || '',
+        category: product?.category || '',
+        brand: product?.brand || '',
         price: product?.price || '',
         imageFile: null as File | null,
         stock: product?.stock || '',
+        rating: product?.rating || '',
         _method: isEdit ? 'PUT' : 'POST',
     });
 
@@ -109,6 +112,43 @@ export default function ProductForm({ ...props }) {
 
                                     <InputError message={errors.description} />
                                 </div>
+
+                                {/* Category */}
+                                <div className="grid gap-2">
+                                    <Label htmlFor="category">Category</Label>
+                                    <Input
+                                        id="category"
+                                        name="category"
+                                        type="text"
+                                        placeholder="Product Category"
+                                        tabIndex={2}
+                                        value={data.category}
+                                        onChange={(e) =>
+                                            setData('category', e.target.value)
+                                        }
+                                    />
+
+                                    <InputError message={errors.category} />
+                                </div>
+
+                                {/* Brand */}
+                                <div className="grid gap-2">
+                                    <Label htmlFor="brand">Brand</Label>
+                                    <Input
+                                        id="brand"
+                                        name="brand"
+                                        type="text"
+                                        placeholder="Product Brand"
+                                        tabIndex={2}
+                                        value={data.brand}
+                                        onChange={(e) =>
+                                            setData('brand', e.target.value)
+                                        }
+                                    />
+
+                                    <InputError message={errors.brand} />
+                                </div>
+
                                 {/* Price */}
                                 <div className="grid gap-2">
                                     <Label htmlFor="price">Price</Label>

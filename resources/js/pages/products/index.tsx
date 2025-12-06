@@ -17,11 +17,14 @@ interface Product {
     id: number;
     name: string;
     description: string;
+    category: string;
+    brand: string;
     price: number;
     imageFile: string;
     created_at: string;
     updated_at: string;
     stock: number;
+    rating: number;
 }
 
 export default function Index({ ...props }: { productsList: Product[] }) {
@@ -47,11 +50,14 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                             <th className="border p-2">#</th>
                             <th className="border p-2">Name</th>
                             <th className="border p-2">Description</th>
+                            <th className="border p-2">Category</th>
+                            <th className="border p-2">Brand</th>
                             <th className="border p-2">Price</th>
                             <th className="border p-2">Image</th>
-                            <th className="border p-2">Created At</th>
-                            <th className="border p-2">Updated At</th>
+                            <th className="border p-2">Created</th>
+                            <th className="border p-2">Updated</th>
                             <th className="border p-2">Stock</th>
+                            <th className="border p-2">Rating</th>
                             <th className="border p-2">Action</th>
                         </tr>
                     </thead>
@@ -65,6 +71,12 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     </td>
                                     <td className="border p-2">
                                         {itemProduct.description}
+                                    </td>
+                                    <td className="border p-2">
+                                        {itemProduct.category}
+                                    </td>
+                                    <td className="border p-2">
+                                        {itemProduct.brand}
                                     </td>
                                     <td className="border p-2">
                                         {itemProduct.price}
@@ -88,6 +100,9 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                     </td>
                                     <td className="border p-2">
                                         {itemProduct.stock}
+                                    </td>
+                                    <td className="border p-2">
+                                        {itemProduct.rating}
                                     </td>
                                     <td className="border p-2">
                                         <div className="flex items-center justify-center gap-2">

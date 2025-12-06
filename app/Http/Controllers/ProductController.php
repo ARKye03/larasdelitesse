@@ -21,9 +21,12 @@ class ProductController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'category' => $product->category,
+                'brand' => $product->brand,
                 'price' => $product->price,
                 'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
                 'stock' => $product->stock,
+                'rating' => $product->rating,
                 'created_at' => $product->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
             ];
@@ -59,9 +62,12 @@ class ProductController extends Controller
             $product = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
+                'category' => $request->category,
+                'brand' => $request->brand,
                 'price' => $request->price,
                 'imageFile' => $image,
                 'stock' => $request->stock,
+                'rating' => $request->rating,
             ]);
 
             if ($product) {
@@ -85,9 +91,12 @@ class ProductController extends Controller
                 'id' => $product->id,
                 'name' => $product->name,
                 'description' => $product->description,
+                'category' => $product->category,
+                'brand' => $product->brand,
                 'price' => $product->price,
                 'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
                 'stock' => $product->stock,
+                'rating' => $product->rating,
                 'created_at' => $product->created_at->format('Y-m-d H:i:s'),
                 'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
             ],
@@ -117,8 +126,11 @@ class ProductController extends Controller
         try {
             $product->name = $request->name;
             $product->description = $request->description;
+            $product->category = $request->category;
+            $product->brand = $request->brand;
             $product->price = $request->price;
             $product->stock = $request->stock;
+            $product->rating = $request->rating;
 
             // Handle image upload if a new image is provided
             if ($request->file('imageFile')) {

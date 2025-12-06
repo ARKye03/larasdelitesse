@@ -46,8 +46,11 @@ class ProductFactory extends Factory
         return [
             'name' => $name,
             'description' => fake()->paragraph(3),
+            'category' => $category,
+            'brand' => $brand,
             'price' => fake()->randomFloat(2, 5, 2000), // Price between $5 and $2000
             'stock' => fake()->numberBetween(0, 500),
+            'rating' => fake()->numberBetween(1, 5),
             'imageFile' => null, // We'll handle images separately if needed
             'og_imageFile' => null,
         ];
