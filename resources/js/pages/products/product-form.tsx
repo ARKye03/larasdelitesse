@@ -19,25 +19,25 @@ export default function ProductForm({ ...props }) {
             href: products.create().url,
         },
     ];
-    const { data, setData, post, put, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: product?.name || '',
         description: product?.description || '',
         price: product?.price || '',
         imageFile: null as File | null,
-        stock: '',
+        stock: product?.stock || '',
+        _method: isEdit ? 'PUT' : 'POST',
     });
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (isEdit) {
-            put(products.update(product.id).url, {
-                onSuccess: () => reset(),
-            });
-        } else {
-            post(products.store().url, {
-                onSuccess: () => reset(),
-            });
-        }
+        const url = isEdit
+            ? products.update(product.id).url
+            : products.store().url;
+
+        post(url, {
+            forceFormData: true,
+            onSuccess: () => reset(),
+        });
     };
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

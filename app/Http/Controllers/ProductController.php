@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Product;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -107,10 +107,38 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @param ProductFormRequest $request
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductFormRequest $request, Product $product)
     {
-        //
+        try {
+            $product->name = $request->name;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->stock = $request->stock;
+
+            // Handle image upload if a new image is provided
+            if ($request->file('imageFile')) {
+                // Delete old image if it exists
+                if ($product->imageFile && Storage::disk('public')->exists($product->imageFile)) {
+                    Storage::disk('public')->delete($product->imageFile);
+                }
+
+                // Store new image
+                $image = $request->file('imageFile');
+                $product->imageFile = $image->store('products', 'public');
+            }
+
+            $product->save();
+
+            return redirect()->route('products.index')->with('success', 'Product updated successfully');
+        } catch (Exception $e) {
+            Log::error('Failed to update product: ' . $e->getMessage(), ['exception' => $e]);
+            return redirect()->back()->with('error', 'Product not updated: ' . $e->getMessage());
+        }
     }
 
     /**
