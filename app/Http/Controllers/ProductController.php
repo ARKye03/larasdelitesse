@@ -80,7 +80,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return Inertia::render('products/view', [
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -88,7 +90,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return Inertia::render('products/product-form', [
+            'product' => $product,
+            'isEdit' => true,
+        ]);
     }
 
     /**

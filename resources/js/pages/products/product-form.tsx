@@ -10,18 +10,19 @@ import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Product Form',
-        href: products.create().url,
-    },
-];
+export default function ProductForm({ ...props }) {
+    const { product, isEdit } = props;
 
-export default function ProductForm() {
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: 'Product ' + (isEdit ? 'Edit' : 'Create'),
+            href: products.create().url,
+        },
+    ];
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        description: '',
-        price: '',
+        name: product?.name || '',
+        description: product?.description || '',
+        price: product?.price || '',
         imageFile: null as File | null,
         stock: '',
     });
