@@ -1,3 +1,4 @@
+import { FiltersIndex } from '@/components/filters-index';
 import FlashMessage from '@/components/flash-message';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
@@ -5,6 +6,7 @@ import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
 import { Annoyed, CirclePlus, Eye, Pencil, Trash } from 'lucide-react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,12 +31,20 @@ interface Product {
 
 export default function Index({ ...props }: { productsList: Product[] }) {
     const { productsList } = props;
-    // console.log(productsList[0]);
+    const [filteredProducts, setFilteredProducts] =
+        useState<Product[]>(productsList);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <FlashMessage />
+
+                <FiltersIndex
+                    productsList={productsList}
+                    onFilterChange={setFilteredProducts}
+                />
+
                 <div className="ml-auto">
                     <Link
                         as="button"
@@ -62,8 +72,8 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {productsList.length > 0 ? (
-                            productsList.map((itemProduct, index) => (
+                        {filteredProducts.length > 0 ? (
+                            filteredProducts.map((itemProduct, index) => (
                                 <tr key={index}>
                                     <td className="border p-2">{index + 1}</td>
                                     <td className="border p-2">
