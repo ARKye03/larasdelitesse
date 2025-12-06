@@ -8,7 +8,7 @@ import AppLayout from '@/layouts/app-layout';
 import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, LoaderCircle } from 'lucide-react';
 
 export default function ProductForm({ ...props }) {
     const { product, isEdit } = props;
@@ -19,7 +19,7 @@ export default function ProductForm({ ...props }) {
             href: products.create().url,
         },
     ];
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, put, processing, errors, reset } = useForm({
         name: product?.name || '',
         description: product?.description || '',
         price: product?.price || '',
@@ -29,12 +29,15 @@ export default function ProductForm({ ...props }) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(products.store().url, {
-            onSuccess: () => {
-                console.log('Product created successfully');
-                reset();
-            },
-        });
+        if (isEdit) {
+            put(products.update(product.id).url, {
+                onSuccess: () => reset(),
+            });
+        } else {
+            post(products.store().url, {
+                onSuccess: () => reset(),
+            });
+        }
     };
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,7 +165,16 @@ export default function ProductForm({ ...props }) {
                                         className="w-fit cursor-pointer"
                                         tabIndex={6}
                                     >
-                                        Submit
+                                        {processing && (
+                                            <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                                        )}
+                                        {processing
+                                            ? isEdit
+                                                ? 'Updating...'
+                                                : 'Submitting...'
+                                            : isEdit
+                                              ? 'Update'
+                                              : 'Submit'}
                                     </Button>
                                 </div>
                             </div>
