@@ -1,8 +1,9 @@
 import FlashMessage from '@/components/flash-message';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import products from '@/routes/products';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { CirclePlus, Eye, Pencil, Trash } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -108,16 +109,27 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                                         >
                                             <Pencil />
                                         </Link>
-                                        <Link
-                                            as="button"
-                                            href={
-                                                products.destroy(itemProduct.id)
-                                                    .url
-                                            }
-                                            className="cursor-pointer rounded bg-ctp-red-700 px-2 py-1 text-white transition-opacity duration-200 hover:opacity-90"
+                                        <Button
+                                            className="cursor-pointer rounded bg-ctp-red-700 px-2 py-1 text-white transition-opacity duration-200 hover:bg-ctp-red-700 hover:opacity-90"
+                                            onClick={() => {
+                                                if (
+                                                    confirm(
+                                                        'Are you sure you want to delete this product?',
+                                                    )
+                                                ) {
+                                                    router.delete(
+                                                        products.destroy(
+                                                            itemProduct.id,
+                                                        ).url,
+                                                        {
+                                                            preserveScroll: true,
+                                                        },
+                                                    );
+                                                }
+                                            }}
                                         >
                                             <Trash />
-                                        </Link>
+                                        </Button>
                                     </div>
                                 </td>
                             </tr>

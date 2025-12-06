@@ -146,6 +146,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        try {
+            $product->delete();
+            return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+        } catch (Exception $e) {
+            Log::error('Failed to delete product: ' . $e->getMessage(), ['exception' => $e]);
+            return redirect()->back()->with('error', 'Product not deleted: ' . $e->getMessage());
+        }
     }
 }
