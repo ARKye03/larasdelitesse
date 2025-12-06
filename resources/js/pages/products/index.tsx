@@ -37,6 +37,15 @@ export default function Index({ ...props }: { productsList: Product[] }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
+            <div className="ml-auto">
+                <Link
+                    as="button"
+                    href={products.create().url}
+                    className="rounded-sm p-2 transition-colors duration-200 hover:bg-gray-800"
+                >
+                    <CirclePlus />
+                </Link>
+            </div>
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <FlashMessage />
 
@@ -45,15 +54,6 @@ export default function Index({ ...props }: { productsList: Product[] }) {
                     onFilterChange={setFilteredProducts}
                 />
 
-                <div className="ml-auto">
-                    <Link
-                        as="button"
-                        href={products.create().url}
-                        className="rounded-sm p-2 transition-colors duration-200 hover:bg-gray-800"
-                    >
-                        <CirclePlus />
-                    </Link>
-                </div>
                 <table className="overflow-hidden rounded-2xl">
                     <thead>
                         <tr className="bg-ctp-red-700 text-white">
