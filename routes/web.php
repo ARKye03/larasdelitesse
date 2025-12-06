@@ -13,7 +13,17 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        $totalProducts = \App\Models\Product::count();
+        $highRatedProducts = \App\Models\Product::where('rating', '>', 4.5)->get();
+        $lowStockProducts = \App\Models\Product::where('stock', '<', 100)->get();
+
+        return Inertia::render('dashboard', [
+            'stats' => [
+                'totalProducts' => $totalProducts,
+                'highRatedProducts' => $highRatedProducts,
+                'lowStockProducts' => $lowStockProducts,
+            ],
+        ]);
     })->name('dashboard');
 
     Route::resource('products', ProductController::class);

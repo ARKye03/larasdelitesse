@@ -43,6 +43,35 @@ class ProductFactory extends Factory
             ? "{$brand} {$productType}"
             : "{$productType} - {$brand}";
 
+        // Generate realistic rating distribution
+        // Most common: 4.0-4.6 (60%)
+        // Less common: 3.0-3.9 (20%)
+        // Rare: 4.7-4.9 (10%)
+        // Very rare: 5.0 (3%)
+        // Occasional: 2.0-2.9 (5%)
+        // Rare bad: 1.0-1.9 (2%)
+        $rand = fake()->numberBetween(1, 100);
+
+        if ($rand <= 60) {
+            // Most common: 4.0-4.6
+            $rating = fake()->randomFloat(1, 4.0, 4.6);
+        } elseif ($rand <= 80) {
+            // Less common: 3.0-3.9
+            $rating = fake()->randomFloat(1, 3.0, 3.9);
+        } elseif ($rand <= 90) {
+            // Rare: 4.7-4.9
+            $rating = fake()->randomFloat(1, 4.7, 4.9);
+        } elseif ($rand <= 93) {
+            // Very rare: 5.0
+            $rating = 5.0;
+        } elseif ($rand <= 98) {
+            // Occasional: 2.0-2.9
+            $rating = fake()->randomFloat(1, 2.0, 2.9);
+        } else {
+            // Rare bad: 1.0-1.9
+            $rating = fake()->randomFloat(1, 1.0, 1.9);
+        }
+
         return [
             'name' => $name,
             'description' => fake()->paragraph(3),
@@ -50,7 +79,7 @@ class ProductFactory extends Factory
             'brand' => $brand,
             'price' => fake()->randomFloat(2, 5, 2000), // Price between $5 and $2000
             'stock' => fake()->numberBetween(0, 500),
-            'rating' => fake()->numberBetween(1, 5),
+            'rating' => round($rating, 1), // Round to 1 decimal place
             'imageFile' => null, // We'll handle images separately if needed
             'og_imageFile' => null,
         ];
