@@ -13,23 +13,25 @@ Route::get('/', function () {
 Route::get('shopping', [OrderController::class, 'index'])->name('shopping');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        $totalProducts = \App\Models\Product::count();
-        $highRatedProducts = \App\Models\Product::where('rating', '>', 4.5)->get();
-        $lowStockProducts = \App\Models\Product::where('stock', '<', 100)->get();
+    Route::middleware('admin')->group(function () {
+        Route::get('dashboard', function () {
+            $totalProducts = \App\Models\Product::count();
+            $highRatedProducts = \App\Models\Product::where('rating', '>', 4.5)->get();
+            $lowStockProducts = \App\Models\Product::where('stock', '<', 100)->get();
 
-        return Inertia::render('dashboard', [
-            'stats' => [
-                'totalProducts' => $totalProducts,
-                'highRatedProducts' => $highRatedProducts,
-                'lowStockProducts' => $lowStockProducts,
-            ],
-        ]);
-    })->name('dashboard');
+            return Inertia::render('dashboard', [
+                'stats' => [
+                    'totalProducts' => $totalProducts,
+                    'highRatedProducts' => $highRatedProducts,
+                    'lowStockProducts' => $lowStockProducts,
+                ],
+            ]);
+        })->name('dashboard');
 
-    Route::resource('products', ProductController::class);
-    Route::resource('admin/users', AdminUserController::class);
-    Route::patch('admin/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
+        Route::resource('products', ProductController::class);
+        Route::resource('admin/users', AdminUserController::class);
+        Route::patch('admin/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
+    });
 
 
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
