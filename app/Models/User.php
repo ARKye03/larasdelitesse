@@ -36,6 +36,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $guarded = ['is_admin'];
+
     /**
      * Get the attributes that should be cast.
      *
