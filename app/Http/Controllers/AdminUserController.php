@@ -65,4 +65,15 @@ class AdminUserController extends Controller
     {
         //
     }
+
+    /**
+     * Toggle the admin status of the specified user.
+     */
+    public function toggleAdmin(User $user)
+    {
+        $user->is_admin = !$user->is_admin;
+        $user->save();
+
+        return back();
+    }
 }
