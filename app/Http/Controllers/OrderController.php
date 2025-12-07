@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -13,7 +14,18 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Inertia::render('shopping/index');
+        $productsList = Product::latest()->get()->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
+                'rating' => $product->rating,
+            ];
+        });
+        return Inertia::render('shopping/index', [
+            'productsList' => $productsList,
+        ]);
     }
 
     /**

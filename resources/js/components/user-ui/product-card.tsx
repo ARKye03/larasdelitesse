@@ -4,7 +4,7 @@ interface Product {
     id: number;
     name: string;
     price: number;
-    image: string;
+    imageFile: string;
     imageAlt?: string;
 }
 
@@ -27,7 +27,7 @@ export default function ProductCard({
         <div className="flex flex-col gap-3 rounded-lg bg-white p-4 transition-shadow hover:shadow-lg dark:bg-slate-800/50 dark:hover:shadow-slate-900/50">
             <div className="aspect-square w-full overflow-hidden rounded-lg">
                 <img
-                    src={product.image}
+                    src={product.imageFile}
                     alt={product.imageAlt || product.name}
                     className="h-full w-full object-cover"
                     loading="lazy"
