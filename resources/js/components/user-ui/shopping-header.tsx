@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { ShoppingCart } from 'lucide-react';
 import AppLogo from '../app-logo';
 
 interface ShoppingHeaderProps {
@@ -24,22 +25,10 @@ export default function ShoppingHeader({
                 </nav>
                 <div className="flex gap-2">
                     <button
-                        className="relative flex h-10 w-10 max-w-[480px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-slate-200 text-sm leading-normal font-bold tracking-[0.015em] text-slate-900 transition-colors dark:bg-slate-800 dark:text-slate-200"
+                        className="relative flex h-10 w-10 max-w-[480px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-slate-200 text-sm leading-normal font-bold tracking-[0.015em] text-slate-900 transition-colors dark:bg-slate-800 dark:text-slate-200"
                         aria-label="Shopping cart"
                     >
-                        <svg
-                            className="h-5 w-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                        </svg>
+                        <ShoppingCart />
                         {cartItemCount > 0 && (
                             <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#7287fd] text-xs font-bold text-white dark:bg-[#babbf1] dark:text-slate-900">
                                 {cartItemCount}
