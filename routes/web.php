@@ -4,13 +4,12 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+    return redirect()->route('shopping');
 })->name('home');
+
+Route::get('shopping', [OrderController::class, 'index'])->name('shopping');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -29,7 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('products', ProductController::class);
 
-    Route::get('shopping', [OrderController::class, 'index'])->name('shopping');
 
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('orders', [OrderController::class, 'show'])->name('orders.show');
