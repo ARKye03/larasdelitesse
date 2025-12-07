@@ -14,7 +14,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $productsList = Product::latest()->get()->map(function ($product) {
+        $productsList = Product::latest()->paginate(12)->through(function ($product) {
             return [
                 'id' => $product->id,
                 'name' => $product->name,

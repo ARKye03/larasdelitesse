@@ -34,7 +34,7 @@ export default function ProductCard({
                 />
             </div>
             <div>
-                <p className="product-title">{product.name}</p>
+                <p className="product-title truncate">{product.name}</p>
                 <p className="text-sm leading-normal font-normal text-slate-600 dark:text-slate-400">
                     ${product.price.toFixed(2)}
                 </p>
