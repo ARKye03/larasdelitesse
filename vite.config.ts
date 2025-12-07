@@ -24,4 +24,10 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    resolve: {
+        alias: {
+            '@/assets': '/resources/assets',
+            '@': '/resources/js',
+        },
+    },
 });
