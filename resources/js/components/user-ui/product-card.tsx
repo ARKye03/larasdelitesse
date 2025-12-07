@@ -1,3 +1,5 @@
+import { ShoppingCart } from 'lucide-react';
+
 interface Product {
     id: number;
     name: string;
@@ -38,11 +40,12 @@ export default function ProductCard({
                 </p>
             </div>
             <button
-                className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-[#7287fd] px-4 text-sm font-bold text-white transition-all hover:bg-[#7287fd]/90 focus:ring-2 focus:ring-[#7287fd]/50 focus:outline-none dark:bg-[#babbf1] dark:text-slate-900 dark:hover:bg-[#babbf1]/90 dark:focus:ring-[#babbf1]/50"
+                className="product-card-button"
                 onClick={handleAddToCart}
                 aria-label={`Add ${product.name} to cart`}
             >
                 Add to Cart
+                <ShoppingCart className="ml-2" />
             </button>
         </div>
     );
