@@ -159,3 +159,58 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #D62929;
 }
+
+/* Shopping Page Styles */
+@layer utilities {
+
+    /* Color scheme support - follows user's system preference */
+    body {
+        color-scheme: light dark;
+    }
+
+    /* Shopping-specific color variables */
+    :root {
+        --shopping-primary: #7287fd;
+        --shopping-primary-dark: #babbf1;
+        --shopping-bg-light: #eff1f5;
+        --shopping-bg-dark: #303446;
+    }
+
+    /* Product Title */
+    .product-title {
+        @apply text-base font-medium leading-normal text-slate-900;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .product-title {
+            @apply text-slate-100;
+        }
+    }
+
+    /* Product Price */
+    .product-price {
+        @apply text-sm font-normal leading-normal text-slate-600;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .product-price {
+            @apply text-slate-400;
+        }
+    }
+
+    /* Shopping Grid */
+    .shopping-grid {
+        @apply grid grid-cols-[repeat(auto-fill, minmax(220px, 1fr))] gap-6 p-4;
+    }
+
+    /* Page Title */
+    .page-title {
+        @apply text-4xl font-black tracking-[-0.033em] min-w-72 text-slate-900;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .page-title {
+            @apply text-slate-100;
+        }
+    }
+}
