@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('products', ProductController::class);
+
+    Route::get('shopping', [OrderController::class, 'index'])->name('shopping');
+
+    Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('orders', [OrderController::class, 'show'])->name('orders.show');
 });
 
 require __DIR__ . '/settings.php';
