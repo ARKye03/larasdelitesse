@@ -33,10 +33,12 @@ export default function ProductCard({
             </div>
             <div>
                 <p className="product-title">{product.name}</p>
-                <p className="product-price">${product.price.toFixed(2)}</p>
+                <p className="text-sm leading-normal font-normal text-slate-600 dark:text-slate-400">
+                    ${product.price.toFixed(2)}
+                </p>
             </div>
             <button
-                className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-[#7287fd] px-4 text-sm font-bold text-white transition-all hover:bg-[#7287fd]/90 focus:outline-none focus:ring-2 focus:ring-[#7287fd]/50 dark:bg-[#babbf1] dark:text-slate-900 dark:hover:bg-[#babbf1]/90 dark:focus:ring-[#babbf1]/50"
+                className="mt-2 flex h-10 w-full items-center justify-center rounded-lg bg-[#7287fd] px-4 text-sm font-bold text-white transition-all hover:bg-[#7287fd]/90 focus:ring-2 focus:ring-[#7287fd]/50 focus:outline-none dark:bg-[#babbf1] dark:text-slate-900 dark:hover:bg-[#babbf1]/90 dark:focus:ring-[#babbf1]/50"
                 onClick={handleAddToCart}
                 aria-label={`Add ${product.name} to cart`}
             >
