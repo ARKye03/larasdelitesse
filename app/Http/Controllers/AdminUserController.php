@@ -59,9 +59,15 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'is_admin' => 'boolean',
+        ]);
 
-        return redirect()->route('admin.users.index');
+        $user->forceFill($validated)->save();
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -71,7 +77,7 @@ class AdminUserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('users.index');
     }
 
     /**

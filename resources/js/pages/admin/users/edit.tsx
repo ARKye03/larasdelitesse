@@ -34,7 +34,7 @@ export default function EditUser({ user }: EditProps) {
         },
     ];
 
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, put, processing, errors, reset } = useForm({
         name: user?.name || '',
         email: user?.email || '',
         is_admin: user?.is_admin || false,
@@ -42,7 +42,9 @@ export default function EditUser({ user }: EditProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(users.update(user.id).url);
+        put(users.update(user.id).url, {
+            onSuccess: () => reset(),
+        });
     };
 
     return (
