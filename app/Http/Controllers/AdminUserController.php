@@ -79,15 +79,4 @@ class AdminUserController extends Controller
 
         return redirect()->route('users.index');
     }
-
-    /**
-     * Toggle the admin status of the specified user.
-     */
-    public function toggleAdmin(User $user)
-    {
-        $user->is_admin = !$user->is_admin;
-        $user->save();
-
-        return back();
-    }
 }

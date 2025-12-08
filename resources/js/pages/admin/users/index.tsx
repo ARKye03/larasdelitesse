@@ -41,22 +41,7 @@ export default function AdminUsers({ users: usersList }: { users: User[] }) {
                                 <td className="border p-2">{user.name}</td>
                                 <td className="border p-2">{user.email}</td>
                                 <td className="border p-2">
-                                    <button
-                                        onClick={() => {
-                                            router.patch(
-                                                `/admin/users/${user.id}/toggle-admin`,
-                                                {},
-                                                { preserveScroll: true },
-                                            );
-                                        }}
-                                        className={`rounded px-2 py-1 text-white transition-colors ${
-                                            user.is_admin
-                                                ? 'bg-green-600 hover:bg-green-700'
-                                                : 'bg-gray-500 hover:bg-gray-600'
-                                        }`}
-                                    >
-                                        {user.is_admin ? 'Yes' : 'No'}
-                                    </button>
+                                    {user.is_admin ? 'Yes' : 'No'}
                                 </td>
                                 <td className="border p-2">
                                     <div className="flex items-center justify-center gap-2">
