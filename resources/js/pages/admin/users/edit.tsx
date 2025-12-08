@@ -1,4 +1,5 @@
 import InputError from '@/components/input-error';
+import { ToggleSwitch } from '@/components/toggle-switch';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -104,11 +105,13 @@ export default function EditUser({ user }: EditProps) {
 
                                 {/* Is Admin */}
                                 <div className="grid gap-2">
-                                    <div className="flex items-center gap-2">
-                                        <Input
+                                    <div className="flex-col items-center gap-2">
+                                        <Label htmlFor="is_admin">
+                                            Is Admin
+                                        </Label>
+                                        <ToggleSwitch
                                             id="is_admin"
                                             name="is_admin"
-                                            type="checkbox"
                                             checked={data.is_admin}
                                             onChange={(e) =>
                                                 setData(
@@ -116,12 +119,9 @@ export default function EditUser({ user }: EditProps) {
                                                     e.target.checked,
                                                 )
                                             }
-                                            className="h-4 w-4"
+                                            className="mr-2"
                                             tabIndex={3}
                                         />
-                                        <Label htmlFor="is_admin">
-                                            Is Admin
-                                        </Label>
                                     </div>
                                     <InputError message={errors.is_admin} />
                                 </div>
