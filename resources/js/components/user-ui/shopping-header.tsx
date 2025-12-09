@@ -27,7 +27,7 @@ export default function ShoppingHeader({
                     </Link>
                     {auth.user ? (
                         <Link
-                            href="/profile"
+                            href="/settings/profile"
                             className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-slate-200 transition-opacity hover:opacity-80 dark:bg-slate-700"
                         >
                             {auth.user.avatar ? (
