@@ -30,7 +30,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::resource('products', ProductController::class);
         Route::resource('admin/users', AdminUserController::class);
-        Route::patch('admin/users/{user}/toggle-admin', [AdminUserController::class, 'toggleAdmin'])->name('admin.users.toggle-admin');
     });
 
 
