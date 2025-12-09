@@ -32,7 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('admin/users', AdminUserController::class);
     });
 
-
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('orders', [OrderController::class, 'show'])->name('orders.show');
 });
