@@ -11,6 +11,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('shopping', [OrderController::class, 'index'])->name('shopping');
+Route::get('shopping/products/{product}', [ProductController::class, 'showShoppingProduct'])->name('shopping.product');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('admin')->group(function () {

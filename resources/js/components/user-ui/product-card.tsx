@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
 
 interface Product {
@@ -25,20 +26,22 @@ export default function ProductCard({
 
     return (
         <div className="flex flex-col gap-3 rounded-lg bg-white p-4 transition-shadow hover:shadow-lg dark:bg-slate-800/50 dark:hover:shadow-slate-900/50">
-            <div className="aspect-square w-full overflow-hidden rounded-lg">
-                <img
-                    src={product.imageFile}
-                    alt={product.imageAlt || product.name}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                />
-            </div>
-            <div>
-                <p className="product-title truncate">{product.name}</p>
-                <p className="text-sm leading-normal font-normal text-slate-600 dark:text-slate-400">
-                    ${product.price.toFixed(2)}
-                </p>
-            </div>
+            <Link href={`/shopping/products/${product.id}`}>
+                <div className="aspect-square w-full overflow-hidden rounded-lg">
+                    <img
+                        src={product.imageFile}
+                        alt={product.imageAlt || product.name}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                    />
+                </div>
+                <div>
+                    <p className="product-title truncate">{product.name}</p>
+                    <p className="text-sm leading-normal font-normal text-slate-600 dark:text-slate-400">
+                        ${product.price.toFixed(2)}
+                    </p>
+                </div>
+            </Link>
             <button
                 className="product-card-button"
                 onClick={handleAddToCart}
