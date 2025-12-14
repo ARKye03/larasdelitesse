@@ -1,7 +1,6 @@
 import { ShoppingLayout } from '@/layouts/shopping-layout';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { ArrowLeft, ShoppingCart, Star, Tag } from 'lucide-react';
-import { useState } from 'react';
 
 interface Product {
     id: number;
@@ -19,11 +18,21 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ product }: ProductPageProps) {
-    const [cartItems, setCartItems] = useState<Product[]>([]);
+    const { auth } = usePage().props as any;
 
     const handleAddToCart = () => {
-        setCartItems((prev) => [...prev, product]);
-        // TODO: Implement actual cart functionality
+        if (!auth?.user) {
+            router.visit('/login');
+            return;
+        }
+
+        router.post(
+            '/cart/add',
+            { product_id: product.id, quantity: 1 },
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     const formatPrice = (price: number) => {
@@ -34,7 +43,7 @@ export default function ProductPage({ product }: ProductPageProps) {
     };
 
     return (
-        <ShoppingLayout cartItems={cartItems}>
+        <ShoppingLayout>
             <Head title={product.name} />
             <main className="p-4 md:p-6 lg:p-8">
                 <div className="mx-auto max-w-6xl">
@@ -132,4 +141,3 @@ export default function ProductPage({ product }: ProductPageProps) {
         </ShoppingLayout>
     );
 }
-

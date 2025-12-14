@@ -1,5 +1,6 @@
-import { Link } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 
 interface Product {
     id: number;
@@ -18,10 +19,30 @@ export default function ProductCard({
     product,
     onAddToCart,
 }: ProductCardProps) {
+    const { auth } = usePage().props as any;
+    const [isAdding, setIsAdding] = useState(false);
+
     const handleAddToCart = () => {
-        if (onAddToCart) {
-            onAddToCart(product);
+        if (!auth?.user) {
+            router.visit('/login');
+            return;
         }
+
+        setIsAdding(true);
+
+        router.post(
+            '/cart/add',
+            { product_id: product.id, quantity: 1 },
+            {
+                preserveScroll: true,
+                onFinish: () => setIsAdding(false),
+                onSuccess: () => {
+                    if (onAddToCart) {
+                        onAddToCart(product);
+                    }
+                },
+            },
+        );
     };
 
     return (
@@ -45,9 +66,10 @@ export default function ProductCard({
             <button
                 className="product-card-button"
                 onClick={handleAddToCart}
+                disabled={isAdding}
                 aria-label={`Add ${product.name} to cart`}
             >
-                Add to Cart
+                {isAdding ? 'Adding...' : 'Add to Cart'}
                 <ShoppingCart className="ml-2" />
             </button>
         </div>

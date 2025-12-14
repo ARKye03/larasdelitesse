@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminUserController;
@@ -32,6 +33,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('products', ProductController::class);
         Route::resource('admin/users', AdminUserController::class);
     });
+
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('cart/add', [CartController::class, 'addItem'])->name('cart.add');
+    Route::patch('cart/items/{item}', [CartController::class, 'updateItem'])->name('cart.update');
+    Route::delete('cart/items/{item}', [CartController::class, 'removeItem'])->name('cart.remove');
+    Route::delete('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('orders', [OrderController::class, 'show'])->name('orders.show');
