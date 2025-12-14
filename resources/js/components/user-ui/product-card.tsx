@@ -1,3 +1,5 @@
+import shopping from '@/routes/shopping';
+import cart from '@/routes/cart';
 import { Link, router, usePage } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
@@ -31,7 +33,7 @@ export default function ProductCard({
         setIsAdding(true);
 
         router.post(
-            '/cart/add',
+            cart.add().url,
             { product_id: product.id, quantity: 1 },
             {
                 preserveScroll: true,
@@ -47,7 +49,7 @@ export default function ProductCard({
 
     return (
         <div className="flex flex-col gap-3 rounded-lg bg-white p-4 transition-shadow hover:shadow-lg dark:bg-slate-800/50 dark:hover:shadow-slate-900/50">
-            <Link href={`/shopping/products/${product.id}`}>
+            <Link href={shopping.product(product.id).url}>
                 <div className="aspect-square w-full overflow-hidden rounded-lg">
                     <img
                         src={product.imageFile}

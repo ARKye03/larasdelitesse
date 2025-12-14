@@ -2,6 +2,9 @@ import { SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { ShoppingCart } from 'lucide-react';
 import AppLogo from '../app-logo';
+import profile from '@/routes/profile';
+import cart from '@/routes/cart';
+import { login, shopping } from '@/routes';
 
 export default function ShoppingHeader() {
     const { auth, cartItemCount } = usePage<
@@ -16,14 +19,14 @@ export default function ShoppingHeader() {
             <div className="flex flex-1 items-center justify-end gap-4 md:gap-8">
                 <nav className="hidden items-center gap-9 md:flex">
                     <Link
-                        href="/shopping"
+                        href={shopping.get().url}
                         className="text-sm font-medium transition-colors hover:text-[#7287fd] dark:hover:text-[#babbf1]"
                     >
                         Home
                     </Link>
                     {auth.user ? (
                         <Link
-                            href="/settings/profile"
+                            href={profile.edit().url}
                             className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-slate-200 transition-opacity hover:opacity-80 dark:bg-slate-700"
                         >
                             {auth.user.avatar ? (
@@ -40,7 +43,7 @@ export default function ShoppingHeader() {
                         </Link>
                     ) : (
                         <Link
-                            href="/login"
+                            href={login.get().url}
                             className="text-sm font-medium transition-colors hover:text-[#7287fd] dark:hover:text-[#babbf1]"
                         >
                             Login
@@ -49,7 +52,7 @@ export default function ShoppingHeader() {
                 </nav>
                 <div className="flex gap-2">
                     <Link
-                        href={auth.user ? '/cart' : '/login'}
+                        href={auth.user ? cart.index().url : login.get().url}
                         className="relative flex h-10 w-10 max-w-[480px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-slate-200 text-sm leading-normal font-bold tracking-[0.015em] text-slate-900 transition-colors hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
                         aria-label="Shopping cart"
                     >

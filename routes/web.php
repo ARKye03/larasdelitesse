@@ -34,11 +34,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('admin/users', AdminUserController::class);
     });
 
-    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('cart/add', [CartController::class, 'addItem'])->name('cart.add');
-    Route::patch('cart/items/{item}', [CartController::class, 'updateItem'])->name('cart.update');
-    Route::delete('cart/items/{item}', [CartController::class, 'removeItem'])->name('cart.remove');
-    Route::delete('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+    Route::get('shopping/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('shopping/cart/add', [CartController::class, 'addItem'])->name('cart.add');
+    Route::patch('shopping/cart/items/{item}', [CartController::class, 'updateItem'])->name('cart.update');
+    Route::delete('shopping/cart/items/{item}', [CartController::class, 'removeItem'])->name('cart.remove');
+    Route::delete('shopping/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
     Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('orders', [OrderController::class, 'show'])->name('orders.show');

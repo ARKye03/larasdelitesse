@@ -24,12 +24,6 @@ export default function Index({
         <ShoppingLayout>
             <Head title="Shopping" />
             <main className="p-4 md:p-6 lg:p-8">
-                <div className="flex flex-wrap items-baseline justify-between gap-4 p-4">
-                    <h1 className="min-w-72 text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-slate-100">
-                        Our Products
-                    </h1>
-                </div>
-
                 <div className="shopping-grid">
                     {productsList.data.map((product) => (
                         <ProductCard key={product.id} product={product} />

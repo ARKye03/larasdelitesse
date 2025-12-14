@@ -2,6 +2,8 @@ import { Head, router } from '@inertiajs/react';
 import { ShoppingLayout } from '@/layouts/shopping-layout';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import cart from '@/routes/cart';
+import { shopping } from '@/routes';
 
 interface CartItem {
     id: number;
@@ -27,7 +29,7 @@ export default function Cart({ cartItems, total }: CartProps) {
         setUpdatingItems((prev) => new Set(prev).add(itemId));
 
         router.patch(
-            `/cart/items/${itemId}`,
+            cart.update(itemId).url,
             { quantity: newQuantity },
             {
                 preserveScroll: true,
@@ -45,7 +47,7 @@ export default function Cart({ cartItems, total }: CartProps) {
     const removeItem = (itemId: number) => {
         if (!confirm('Remove this item from your cart?')) return;
 
-        router.delete(`/cart/items/${itemId}`, {
+        router.delete(cart.remove(itemId).url, {
             preserveScroll: true,
         });
     };
@@ -53,7 +55,7 @@ export default function Cart({ cartItems, total }: CartProps) {
     const clearCart = () => {
         if (!confirm('Clear all items from your cart?')) return;
 
-        router.delete('/cart/clear', {
+        router.delete(cart.clear().url, {
             preserveScroll: true,
         });
     };
@@ -84,7 +86,7 @@ export default function Cart({ cartItems, total }: CartProps) {
                             Add some delicious items to get started!
                         </p>
                         <a
-                            href="/shopping"
+                            href={shopping.get().url}
                             className="product-card-button inline-flex"
                         >
                             Continue Shopping
@@ -252,7 +254,7 @@ export default function Cart({ cartItems, total }: CartProps) {
                             </button>
 
                             <a
-                                href="/shopping"
+                                href={shopping.get().url}
                                 className="mt-4 block text-center text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                             >
                                 Continue Shopping

@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { ShoppingLayout } from '@/layouts/shopping-layout';
 import { Package, ShoppingBag } from 'lucide-react';
+import { shopping } from '@/routes';
 
 interface OrderItem {
     product_name: string;
@@ -35,7 +36,7 @@ export default function Orders({ orders }: OrdersProps) {
                             Start shopping to see your order history here!
                         </p>
                         <a
-                            href="/shopping"
+                            href={shopping.get().url}
                             className="product-card-button inline-flex"
                         >
                             Start Shopping
@@ -119,7 +120,7 @@ export default function Orders({ orders }: OrdersProps) {
 
                 <div className="mt-8 text-center">
                     <a
-                        href="/shopping"
+                        href={shopping.get().url}
                         className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                     >
                         ← Back to Shopping

@@ -1,4 +1,6 @@
 import { ShoppingLayout } from '@/layouts/shopping-layout';
+import { shopping } from '@/routes';
+import cart from '@/routes/cart';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { ArrowLeft, ShoppingCart, Star, Tag } from 'lucide-react';
 
@@ -27,7 +29,7 @@ export default function ProductPage({ product }: ProductPageProps) {
         }
 
         router.post(
-            '/cart/add',
+            cart.add().url,
             { product_id: product.id, quantity: 1 },
             {
                 preserveScroll: true,
@@ -49,7 +51,7 @@ export default function ProductPage({ product }: ProductPageProps) {
                 <div className="mx-auto max-w-6xl">
                     {/* Back Button */}
                     <Link
-                        href="/shopping"
+                        href={shopping.get().url}
                         className="mb-6 inline-flex items-center gap-2 text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                     >
                         <ArrowLeft className="h-4 w-4" />
