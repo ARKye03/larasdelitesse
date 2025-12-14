@@ -29,7 +29,6 @@ interface ViewProps {
 }
 
 export default function View({ product }: ViewProps) {
-    console.log(product);
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {

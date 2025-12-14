@@ -1,34 +1,41 @@
 import { Head } from '@inertiajs/react';
 
 import AppearanceTabs from '@/components/appearance-tabs';
-import HeadingSmall from '@/components/heading-small';
-import { type BreadcrumbItem } from '@/types';
-
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
-import { edit as editAppearance } from '@/routes/appearance';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Appearance settings',
-        href: editAppearance().url,
-    },
-];
+import SettingsNav from '@/components/user-ui/settings-nav';
+import { ShoppingLayout } from '@/layouts/shopping-layout';
 
 export default function Appearance() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Appearance settings" />
+        <ShoppingLayout cartItems={[]}>
+            <Head title="Appearance Settings" />
+            <main className="p-4 md:p-6 lg:p-8">
+                <div className="mx-auto max-w-4xl">
+                    <div className="mb-8">
+                        <h1 className="text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-slate-100">
+                            Settings
+                        </h1>
+                        <p className="mt-2 text-slate-600 dark:text-slate-400">
+                            Manage your profile and account settings
+                        </p>
+                    </div>
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall
-                        title="Appearance settings"
-                        description="Update your account's appearance settings"
-                    />
-                    <AppearanceTabs />
+                    <SettingsNav />
+
+                    <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
+                        <div className="border-b border-slate-200 p-6 dark:border-slate-700">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                                Appearance Settings
+                            </h2>
+                            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                Update your account's appearance settings
+                            </p>
+                        </div>
+                        <div className="p-6">
+                            <AppearanceTabs />
+                        </div>
+                    </div>
                 </div>
-            </SettingsLayout>
-        </AppLayout>
+            </main>
+        </ShoppingLayout>
     );
 }

@@ -1,39 +1,46 @@
 import PasswordController from '@/actions/App/Http/Controllers/Settings/PasswordController';
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
-import { type BreadcrumbItem } from '@/types';
-import { Transition } from '@headlessui/react';
-import { Form, Head } from '@inertiajs/react';
-import { useRef } from 'react';
-
-import HeadingSmall from '@/components/heading-small';
+import SettingsNav from '@/components/user-ui/settings-nav';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { edit } from '@/routes/user-password';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Password settings',
-        href: edit().url,
-    },
-];
+import { ShoppingLayout } from '@/layouts/shopping-layout';
+import { Transition } from '@headlessui/react';
+import { Form, Head } from '@inertiajs/react';
+import { useRef } from 'react';
 
 export default function Password() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Password settings" />
+        <ShoppingLayout cartItems={[]}>
+            <Head title="Password Settings" />
+            <main className="p-4 md:p-6 lg:p-8">
+                <div className="mx-auto max-w-4xl">
+                    <div className="mb-8">
+                        <h1 className="text-4xl font-black tracking-[-0.033em] text-slate-900 dark:text-slate-100">
+                            Settings
+                        </h1>
+                        <p className="mt-2 text-slate-600 dark:text-slate-400">
+                            Manage your profile and account settings
+                        </p>
+                    </div>
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall
-                        title="Update password"
-                        description="Ensure your account is using a long, random password to stay secure"
-                    />
+                    <SettingsNav />
+
+                    <div className="rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
+                        <div className="border-b border-slate-200 p-6 dark:border-slate-700">
+                            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+                                Update Password
+                            </h2>
+                            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                Ensure your account is using a long, random password to stay secure
+                            </p>
+                        </div>
+
+                        <div className="p-6">
+                            <div className="space-y-6">
 
                     <Form
                         {...PasswordController.update.form()}
@@ -120,6 +127,7 @@ export default function Password() {
                                     <Button
                                         disabled={processing}
                                         data-test="update-password-button"
+                                        className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600"
                                     >
                                         Save password
                                     </Button>
@@ -131,7 +139,7 @@ export default function Password() {
                                         leave="transition ease-in-out"
                                         leaveTo="opacity-0"
                                     >
-                                        <p className="text-sm text-neutral-600">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
                                             Saved
                                         </p>
                                     </Transition>
@@ -139,8 +147,11 @@ export default function Password() {
                             </>
                         )}
                     </Form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </SettingsLayout>
-        </AppLayout>
+            </main>
+        </ShoppingLayout>
     );
 }

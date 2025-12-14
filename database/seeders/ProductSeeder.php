@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
@@ -13,24 +12,38 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        // Clear existing products (optional - comment out if you want to keep existing data)
+        // Clear existing products
         // Product::truncate();
 
-        // Create 1000 products with varied characteristics
-        Product::factory(800)->create();
+        // Me: I mean this is for testing purpose only, is it ok?
+        // Me: yeah!
+        $sourceDir = '/home/archxekye/Downloads/larasimages';
+        $destDir = storage_path('app/public/products');
 
-        // Create 100 out of stock products
-        Product::factory(50)->outOfStock()->create();
+        // Ensure the destination directory exists
+        if (! \Illuminate\Support\Facades\File::exists($destDir)) {
+            \Illuminate\Support\Facades\File::makeDirectory($destDir, 0755, true);
+        }
 
-        // Create 50 low stock products
-        Product::factory(50)->lowStock()->create();
+        // Create 457 products using the specific images
+        Product::factory()
+            ->count(457)
+            ->sequence(function (\Illuminate\Database\Eloquent\Factories\Sequence $sequence) use ($sourceDir, $destDir) {
+                $index = $sequence->index + 1; // 1-based index (1.webp, 2.webp, etc)
+                $sourceFile = "{$sourceDir}/{$index}.webp";
+                $destFileName = "products/{$index}.webp";
+                $destFile = "{$destDir}/{$index}.webp";
 
-        // Create 50 expensive products
-        Product::factory(50)->expensive()->create();
+                // If source image exists, copy it and use it
+                if (\Illuminate\Support\Facades\File::exists($sourceFile)) {
+                    \Illuminate\Support\Facades\File::copy($sourceFile, $destFile);
+                    return ['imageFile' => $destFileName];
+                }
 
-        // Create 50 cheap products
-        Product::factory(50)->cheap()->create();
+                return ['imageFile' => null];
+            })
+            ->create();
 
-        $this->command->info('Successfully seeded 1000 products!');
+        $this->command->info('Successfully seeded 457 products with images!');
     }
 }

@@ -103,6 +103,29 @@ class ProductController extends Controller
         ]);
     }
 
+
+    /**
+     * Display a product detail page for users (shopping frontend).
+     * 
+     * @param Product $product
+     * @return \Inertia\Response
+     */
+    public function showShoppingProduct(Product $product)
+    {
+        return Inertia::render('shopping/product', [
+            'product' => [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'category' => $product->category,
+                'brand' => $product->brand,
+                'price' => $product->price,
+                'imageFile' => $product->imageFile ? asset('storage/' . $product->imageFile) : null,
+                'rating' => $product->rating,
+            ],
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
